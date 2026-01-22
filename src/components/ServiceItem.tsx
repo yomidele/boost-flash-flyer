@@ -10,7 +10,7 @@ const ServiceItem = ({ text }: ServiceItemProps) => {
       <div className="flex-shrink-0 w-4 h-4 rounded bg-gradient-to-br from-neon-pink to-neon-orange flex items-center justify-center">
         <Check className="w-3 h-3 text-foreground" strokeWidth={3} />
       </div>
-      <span className="text-xs font-semibold leading-tight uppercase tracking-wide">
+      <span className="text-sm font-semibold leading-tight uppercase tracking-wide">
         {text}
       </span>
     </div>
