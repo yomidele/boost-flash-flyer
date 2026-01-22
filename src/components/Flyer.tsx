@@ -1,5 +1,5 @@
 import ServiceItem from "./ServiceItem";
-import { Phone, MessageCircle, Send, Facebook, Instagram, Twitter } from "lucide-react";
+import { Phone, MessageCircle, Send } from "lucide-react";
 
 // Import background images
 import verificationModel from "@/assets/verification-model.png";
@@ -7,6 +7,14 @@ import flightTicket from "@/assets/flight-ticket.png";
 import usaFlag from "@/assets/usa-flag.png";
 import ukFlag from "@/assets/uk-flag.png";
 import canadaFlag from "@/assets/canada-flag.png";
+import tiktokIcon from "@/assets/tiktok-icon.png";
+import whatsappIcon from "@/assets/whatsapp-icon.png";
+import instagramIcon from "@/assets/instagram-icon.png";
+import facebookIcon from "@/assets/facebook-icon.png";
+import telegramIcon from "@/assets/telegram-icon.png";
+import callIcon from "@/assets/call-icon.png";
+import twitterIcon from "@/assets/twitter-icon.png";
+import snapchatIcon from "@/assets/snapchat-icon.png";
 
 const services = [
   "Paper Holding",
@@ -36,111 +44,181 @@ const services = [
 const Flyer = () => {
   return (
     <div className="w-full h-screen max-w-md mx-auto bg-gradient-bg relative overflow-hidden flex flex-col">
-      {/* Scattered Background Images */}
+      {/* Scattered Background Images - More Visible */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Verification Model - top left */}
         <img 
           src={verificationModel} 
           alt="" 
-          className="absolute -top-4 -left-8 w-28 h-28 object-cover rounded-full opacity-25 rotate-[-15deg] border-2 border-neon-pink/30"
+          className="absolute -top-2 -left-4 w-20 h-20 object-cover rounded-full opacity-50 rotate-[-15deg] border-2 border-neon-pink/50 shadow-lg"
+        />
+        
+        {/* TikTok - top area */}
+        <img 
+          src={tiktokIcon} 
+          alt="" 
+          className="absolute top-2 left-[30%] w-12 h-12 object-contain opacity-60 rotate-[10deg]"
         />
         
         {/* Flight Ticket - top right */}
         <img 
           src={flightTicket} 
           alt="" 
-          className="absolute top-8 -right-6 w-24 h-20 object-cover opacity-30 rotate-[20deg]"
+          className="absolute top-4 -right-4 w-20 h-16 object-cover opacity-50 rotate-[15deg]"
         />
         
-        {/* USA Flag - mid left */}
+        {/* Instagram - left side */}
+        <img 
+          src={instagramIcon} 
+          alt="" 
+          className="absolute top-[15%] left-0 w-10 h-10 object-contain opacity-55 rotate-[-8deg]"
+        />
+        
+        {/* Facebook - right side */}
+        <img 
+          src={facebookIcon} 
+          alt="" 
+          className="absolute top-[18%] right-2 w-11 h-11 object-contain opacity-55 rotate-[12deg]"
+        />
+        
+        {/* USA Flag */}
         <img 
           src={usaFlag} 
           alt="" 
-          className="absolute top-[35%] -left-4 w-16 h-12 object-cover opacity-35 rotate-[-10deg]"
+          className="absolute top-[28%] -left-2 w-14 h-10 object-cover opacity-55 rotate-[-5deg]"
         />
         
-        {/* UK Flag - mid right */}
+        {/* UK Flag */}
         <img 
           src={ukFlag} 
           alt="" 
-          className="absolute top-[25%] -right-2 w-14 h-10 object-cover opacity-35 rotate-[15deg]"
+          className="absolute top-[25%] -right-1 w-12 h-9 object-cover opacity-55 rotate-[8deg]"
         />
         
-        {/* Canada Flag - bottom left */}
+        {/* WhatsApp - middle left */}
+        <img 
+          src={whatsappIcon} 
+          alt="" 
+          className="absolute top-[38%] -left-1 w-11 h-11 object-contain opacity-55 rotate-[5deg]"
+        />
+        
+        {/* Telegram - middle right */}
+        <img 
+          src={telegramIcon} 
+          alt="" 
+          className="absolute top-[35%] right-0 w-10 h-10 object-contain opacity-50 rotate-[-10deg]"
+        />
+        
+        {/* Canada Flag */}
         <img 
           src={canadaFlag} 
           alt="" 
-          className="absolute bottom-[30%] -left-2 w-14 h-12 object-cover opacity-30 rotate-[8deg]"
+          className="absolute top-[48%] -left-2 w-12 h-10 object-cover opacity-50 rotate-[10deg]"
         />
         
-        {/* Another verification - bottom right */}
+        {/* Twitter/X */}
+        <img 
+          src={twitterIcon} 
+          alt="" 
+          className="absolute top-[45%] right-1 w-10 h-10 object-contain opacity-50 rotate-[15deg]"
+        />
+        
+        {/* Call Icon */}
+        <img 
+          src={callIcon} 
+          alt="" 
+          className="absolute top-[55%] left-1 w-10 h-10 object-contain opacity-55 rotate-[-12deg]"
+        />
+        
+        {/* Snapchat */}
+        <img 
+          src={snapchatIcon} 
+          alt="" 
+          className="absolute top-[52%] -right-1 w-11 h-11 object-contain opacity-50 rotate-[8deg]"
+        />
+        
+        {/* Verification Model 2 - bottom area */}
         <img 
           src={verificationModel} 
           alt="" 
-          className="absolute bottom-[18%] -right-6 w-24 h-24 object-cover rounded-full opacity-20 rotate-[10deg] border-2 border-neon-blue/30"
+          className="absolute bottom-[22%] -right-4 w-18 h-18 object-cover rounded-full opacity-45 rotate-[12deg] border-2 border-neon-blue/50"
         />
         
-        {/* Flight ticket - bottom */}
+        {/* Flight ticket - bottom left */}
         <img 
           src={flightTicket} 
           alt="" 
-          className="absolute bottom-4 left-4 w-20 h-16 object-cover opacity-25 rotate-[-20deg]"
+          className="absolute bottom-[25%] -left-4 w-16 h-14 object-cover opacity-45 rotate-[-18deg]"
+        />
+        
+        {/* TikTok - bottom */}
+        <img 
+          src={tiktokIcon} 
+          alt="" 
+          className="absolute bottom-[15%] left-2 w-9 h-9 object-contain opacity-50 rotate-[-5deg]"
+        />
+        
+        {/* Instagram - bottom right */}
+        <img 
+          src={instagramIcon} 
+          alt="" 
+          className="absolute bottom-[18%] right-4 w-9 h-9 object-contain opacity-45 rotate-[20deg]"
+        />
+        
+        {/* USA Flag - bottom */}
+        <img 
+          src={usaFlag} 
+          alt="" 
+          className="absolute bottom-8 right-2 w-10 h-8 object-cover opacity-45 rotate-[10deg]"
+        />
+        
+        {/* UK Flag - bottom */}
+        <img 
+          src={ukFlag} 
+          alt="" 
+          className="absolute bottom-6 left-4 w-10 h-7 object-cover opacity-45 rotate-[-8deg]"
         />
 
-        {/* Country Code Badges */}
-        <div className="absolute top-[45%] right-2 bg-neon-blue/30 px-2 py-1 rounded text-[10px] font-bold text-foreground opacity-50 rotate-[5deg]">
+        {/* Country Code Badges - More Visible */}
+        <div className="absolute top-[32%] right-14 bg-neon-blue/60 px-2 py-1 rounded-md text-xs font-bold text-foreground opacity-70 rotate-[5deg] shadow-md">
           +1
         </div>
-        <div className="absolute top-[55%] left-2 bg-neon-pink/30 px-2 py-1 rounded text-[10px] font-bold text-foreground opacity-50 rotate-[-8deg]">
+        <div className="absolute top-[42%] left-12 bg-neon-pink/60 px-2 py-1 rounded-md text-xs font-bold text-foreground opacity-70 rotate-[-8deg] shadow-md">
           +44
         </div>
-        <div className="absolute bottom-[40%] right-6 bg-neon-orange/30 px-2 py-1 rounded text-[10px] font-bold text-foreground opacity-40 rotate-[12deg]">
+        <div className="absolute bottom-[30%] right-8 bg-neon-orange/60 px-2 py-1 rounded-md text-xs font-bold text-foreground opacity-65 rotate-[12deg] shadow-md">
           +1
         </div>
-
-        {/* Social Media Icons Scattered */}
-        <div className="absolute top-16 left-8 opacity-30">
-          <Facebook className="w-6 h-6 text-neon-blue" />
-        </div>
-        <div className="absolute top-[40%] right-8 opacity-25">
-          <Instagram className="w-5 h-5 text-neon-pink" />
-        </div>
-        <div className="absolute bottom-[50%] left-6 opacity-30">
-          <Twitter className="w-5 h-5 text-neon-blue" />
-        </div>
-        <div className="absolute bottom-28 right-4 opacity-25">
-          <Phone className="w-5 h-5 text-neon-green" />
-        </div>
-        <div className="absolute top-[60%] left-1 opacity-20">
-          <MessageCircle className="w-4 h-4 text-neon-green" />
+        <div className="absolute top-[58%] right-12 bg-neon-green/60 px-2 py-1 rounded-md text-xs font-bold text-foreground opacity-65 rotate-[-5deg] shadow-md">
+          +44
         </div>
       </div>
 
       {/* Decorative blur elements */}
-      <div className="absolute top-0 left-0 w-40 h-40 bg-neon-pink/20 rounded-full blur-3xl" />
-      <div className="absolute top-20 right-0 w-32 h-32 bg-neon-blue/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-10 w-36 h-36 bg-neon-orange/15 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-0 w-40 h-40 bg-neon-pink/15 rounded-full blur-3xl" />
+      <div className="absolute top-20 right-0 w-32 h-32 bg-neon-blue/15 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-10 w-36 h-36 bg-neon-orange/10 rounded-full blur-3xl" />
       
       {/* Header */}
-      <div className="relative z-10 pt-6 pb-4 px-4">
+      <div className="relative z-10 pt-5 pb-3 px-4">
         <div className="text-center">
-          <h1 className="text-3xl font-black uppercase tracking-wider bg-gradient-to-r from-neon-pink via-neon-orange to-neon-blue bg-clip-text text-transparent drop-shadow-lg">
+          <h1 className="text-2xl font-black uppercase tracking-wider bg-gradient-to-r from-neon-pink via-neon-orange to-neon-blue bg-clip-text text-transparent drop-shadow-lg">
             Premium Services
           </h1>
-          <div className="mt-1 h-1 w-32 mx-auto bg-gradient-to-r from-neon-pink to-neon-blue rounded-full" />
+          <div className="mt-1 h-1 w-28 mx-auto bg-gradient-to-r from-neon-pink to-neon-blue rounded-full" />
         </div>
       </div>
 
       {/* Services Section */}
-      <div className="relative z-10 flex-1 px-4 py-2">
-        <div className="bg-card/90 backdrop-blur-md rounded-2xl p-4 border border-neon-pink/30 shadow-lg shadow-neon-pink/10">
-          <div className="text-center mb-3">
-            <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-neon-pink to-neon-orange rounded-full text-xs font-bold uppercase tracking-widest text-foreground shadow-lg">
+      <div className="relative z-10 flex-1 px-3 py-1">
+        <div className="bg-card/95 backdrop-blur-md rounded-2xl p-3 border border-neon-pink/40 shadow-xl shadow-neon-pink/20">
+          <div className="text-center mb-2">
+            <span className="inline-block px-4 py-1 bg-gradient-to-r from-neon-pink to-neon-orange rounded-full text-[10px] font-bold uppercase tracking-widest text-foreground shadow-lg">
               Our Services
             </span>
           </div>
           
-          <div className="grid grid-cols-2 gap-x-3 gap-y-2">
+          <div className="grid grid-cols-2 gap-x-2 gap-y-1.5">
             {services.map((service, index) => (
               <ServiceItem key={index} text={service} />
             ))}
@@ -149,35 +227,35 @@ const Flyer = () => {
       </div>
 
       {/* Contact Section */}
-      <div className="relative z-10 px-4 pb-6 pt-2">
-        <div className="bg-gradient-to-r from-neon-pink/20 via-neon-blue/20 to-neon-orange/20 rounded-2xl p-4 border border-neon-blue/30 backdrop-blur-sm">
-          <p className="text-center text-xs font-bold uppercase tracking-widest text-neon-blue mb-3">
+      <div className="relative z-10 px-4 pb-4 pt-1">
+        <div className="bg-gradient-to-r from-neon-pink/25 via-neon-blue/25 to-neon-orange/25 rounded-2xl p-3 border border-neon-blue/40 backdrop-blur-sm">
+          <p className="text-center text-[10px] font-bold uppercase tracking-widest text-neon-blue mb-2">
             Contact Us Now
           </p>
           <div className="flex justify-center gap-6">
             <div className="flex flex-col items-center gap-1">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neon-green to-neon-blue flex items-center justify-center shadow-lg shadow-neon-green/30">
-                <Phone className="w-5 h-5 text-foreground" />
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-neon-green to-neon-blue flex items-center justify-center shadow-lg shadow-neon-green/40">
+                <Phone className="w-4 h-4 text-foreground" />
               </div>
-              <span className="text-[9px] text-muted-foreground uppercase">Call</span>
+              <span className="text-[8px] text-muted-foreground uppercase">Call</span>
             </div>
             <div className="flex flex-col items-center gap-1">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neon-green to-neon-blue flex items-center justify-center shadow-lg shadow-neon-green/30">
-                <MessageCircle className="w-5 h-5 text-foreground" />
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-neon-green to-neon-blue flex items-center justify-center shadow-lg shadow-neon-green/40">
+                <MessageCircle className="w-4 h-4 text-foreground" />
               </div>
-              <span className="text-[9px] text-muted-foreground uppercase">WhatsApp</span>
+              <span className="text-[8px] text-muted-foreground uppercase">WhatsApp</span>
             </div>
             <div className="flex flex-col items-center gap-1">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neon-blue to-neon-pink flex items-center justify-center shadow-lg shadow-neon-blue/30">
-                <Send className="w-5 h-5 text-foreground" />
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-neon-blue to-neon-pink flex items-center justify-center shadow-lg shadow-neon-blue/40">
+                <Send className="w-4 h-4 text-foreground" />
               </div>
-              <span className="text-[9px] text-muted-foreground uppercase">Telegram</span>
+              <span className="text-[8px] text-muted-foreground uppercase">Telegram</span>
             </div>
           </div>
         </div>
         
         {/* Footer branding */}
-        <p className="text-center mt-3 text-[10px] text-muted-foreground uppercase tracking-widest">
+        <p className="text-center mt-2 text-[9px] text-muted-foreground uppercase tracking-widest">
           Fast • Reliable • Discrete
         </p>
       </div>
