@@ -309,7 +309,8 @@ SALES BEHAVIOR:
 WEBSITE KNOWLEDGE:
 ${knowledgeContext || "No specific knowledge available."}
 ${productContext || "No products catalogued yet."}
-${paymentContext}`;
+${paymentContext}
+${manualPaymentContext}`;
 
     // Store user message
     if (activeConvoId && lastUserMsg) {
