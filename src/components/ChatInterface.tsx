@@ -50,7 +50,21 @@ const ChatInterface = ({ siteId, siteName, supabaseUrl, supabaseKey, embedded = 
 
   const sendMessage = useCallback(async () => {
     if (!input.trim() || isLoading) return;
-    const userMsg: Msg = { role: "user", content: input.trim() };
+
+    // Client-side rate limiting (30 msgs/min)
+    if (!checkRateLimit(`chat_${siteId}`, 30, 60_000)) {
+      logSecurityEvent("rate_limited", { siteId });
+      setMessages((prev) => [...prev, { role: "assistant", content: "You're sending messages too quickly. Please wait a moment. ⏳" }]);
+      return;
+    }
+
+    // Client-side injection pre-filter (logged, but still sent — server handles blocking)
+    if (detectPromptInjection(input)) {
+      logSecurityEvent("prompt_injection_detected", { siteId, snippet: input.slice(0, 80) });
+    }
+
+    const sanitized = sanitizeChatMessage(input.trim());
+    const userMsg: Msg = { role: "user", content: sanitized };
     setInput("");
     setMessages((prev) => [...prev, userMsg]);
     setIsLoading(true);
