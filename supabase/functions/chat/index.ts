@@ -366,6 +366,10 @@ serve(async (req) => {
       });
     }
 
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
     // Get site config
     const { data: site, error: siteError } = await supabase
       .from("sites")
@@ -396,9 +400,6 @@ serve(async (req) => {
         activeConvoId = newConvo?.id;
       }
     }
-
-    const lastUserMsg = [...messages].reverse().find((m: any) => m.role === "user");
-    const query = lastUserMsg?.content || "";
 
     // Search knowledge + products in parallel
     const [chunksResult, productsResult, manualPayResult] = await Promise.all([
