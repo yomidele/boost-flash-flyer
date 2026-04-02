@@ -586,7 +586,7 @@ ${manualPaymentContext}`;
       });
     }
 
-    const fallbackOrder = !toolCall && checkoutIntent ? extractStructuredOrderFromMessages(messages, products) : null;
+    const fallbackOrder = !toolCall && checkoutIntent ? extractStructuredOrderFromMessages(sanitizedMessages, products) : null;
 
     if (fallbackOrder) {
       const checkoutResult = await callDynamicCheckout(
