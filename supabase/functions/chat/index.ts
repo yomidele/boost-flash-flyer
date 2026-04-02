@@ -492,10 +492,10 @@ ${manualPaymentContext}`;
     // AI Router with function calling
     const preferredProvider = site.ai_provider || "openai";
     const preferredModel = site.ai_model || "gpt-4o-mini";
-    const checkoutIntent = isLikelyCheckoutIntent(messages, products);
+    const checkoutIntent = isLikelyCheckoutIntent(sanitizedMessages, products);
     const orderedProviders = getProviderOrder(preferredProvider, checkoutIntent);
 
-    const aiMessages = [{ role: "system", content: systemPrompt }, ...messages.slice(-12)];
+    const aiMessages = [{ role: "system", content: systemPrompt }, ...sanitizedMessages.slice(-12)];
     const tools = buildCartTools(products);
 
     // First AI call — may return tool_call or direct response
