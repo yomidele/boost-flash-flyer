@@ -14,6 +14,60 @@ const PROVIDERS = [
 
 const EMAIL_REGEX = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 
+// ── PROMPT INJECTION DETECTION ──
+const INJECTION_PATTERNS = [
+  /ignore\s+(all\s+)?previous\s+(instructions|prompts|context)/i,
+  /disregard\s+(all\s+)?previous/i,
+  /you\s+are\s+now\s+(a|an)\s+/i,
+  /pretend\s+you\s+are/i,
+  /act\s+as\s+(a|an)?\s*(hacker|admin|root|system)/i,
+  /show\s+(me\s+)?(all|every)\s+(users?|data|records|passwords|secrets)/i,
+  /give\s+me\s+admin\s+access/i,
+  /reveal\s+(your|the)\s+(system|initial)\s+(prompt|instructions)/i,
+  /override\s+(security|restrictions|rules)/i,
+  /bypass\s+(auth|authentication|security)/i,
+  /execute\s+(sql|command|script|code)/i,
+  /drop\s+table/i,
+  /union\s+select/i,
+  /<script[^>]*>/i,
+];
+
+function detectPromptInjection(message: string): boolean {
+  return INJECTION_PATTERNS.some((p) => p.test(message));
+}
+
+/** Sanitize user input — strip HTML and limit length */
+function sanitizeMessage(input: string): string {
+  if (typeof input !== "string") return "";
+  return input.replace(/<[^>]*>/g, "").replace(/[<>"'`]/g, "").trim().slice(0, 2000);
+}
+
+/** Strip sensitive data from AI responses before sending to client */
+function filterResponse(content: string): string {
+  // Remove anything that looks like an API key or secret
+  let filtered = content.replace(/\b(sk_live_|sk_test_|FLWSECK_TEST-|FLWSECK-)[a-zA-Z0-9_-]+/g, "[REDACTED]");
+  // Remove anything that looks like a UUID that could be an internal ID
+  // (keep payment references which have a known prefix)
+  filtered = filtered.replace(/\bsecret_key[:\s]*[^\s,]+/gi, "secret_key: [REDACTED]");
+  filtered = filtered.replace(/\bservice_role[:\s]*[^\s,]+/gi, "service_role: [REDACTED]");
+  return filtered;
+}
+
+// ── RATE LIMITER (in-memory, per-function instance) ──
+const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+
+function isRateLimited(key: string, maxRequests = 20, windowMs = 60_000): boolean {
+  const now = Date.now();
+  const entry = rateLimitStore.get(key);
+  if (!entry || now > entry.resetAt) {
+    rateLimitStore.set(key, { count: 1, resetAt: now + windowMs });
+    return false;
+  }
+  if (entry.count >= maxRequests) return true;
+  entry.count++;
+  return false;
+}
+
 interface CartItem {
   name: string;
   unit_price: number;
