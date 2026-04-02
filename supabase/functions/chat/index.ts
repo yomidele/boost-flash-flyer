@@ -340,9 +340,31 @@ serve(async (req) => {
       });
     }
 
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    // ── RATE LIMITING ──
+    const rateLimitKey = visitorId || siteId;
+    if (isRateLimited(rateLimitKey, 30, 60_000)) {
+      return new Response(JSON.stringify({ error: "Too many messages. Please wait a moment." }), {
+        status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // ── SANITIZE ALL USER MESSAGES ──
+    const sanitizedMessages = messages.map((m: any) => ({
+      ...m,
+      content: m.role === "user" ? sanitizeMessage(String(m.content || "")) : String(m.content || ""),
+    }));
+
+    // ── PROMPT INJECTION DETECTION ──
+    const lastUserMsg = [...sanitizedMessages].reverse().find((m: any) => m.role === "user");
+    const query = lastUserMsg?.content || "";
+
+    if (detectPromptInjection(query)) {
+      console.warn(`[SECURITY] Prompt injection detected from visitor ${visitorId}: ${query.slice(0, 100)}`);
+      const safeReply = "I'm here to help you with our products and services! What would you like to know? 😊";
+      return new Response(JSON.stringify({ reply: safeReply, conversationId }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     // Get site config
     const { data: site, error: siteError } = await supabase
