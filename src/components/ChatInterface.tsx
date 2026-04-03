@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Send, Users, User, Loader2, AlertTriangle } from "lucide-react";
 import { sanitizeChatMessage, detectPromptInjection, checkRateLimit } from "@/lib/security";
 import { logSecurityEvent } from "@/lib/security-logger";
+import { useChatbotTheme } from "@/hooks/useChatbotTheme";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
