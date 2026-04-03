@@ -428,6 +428,21 @@ const Sites = () => {
           </table>
         </div>
       )}
+
+      {/* Theme Customization Dialog */}
+      <Dialog open={!!themeDialogSiteId} onOpenChange={(open) => !open && setThemeDialogSiteId(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Palette className="h-5 w-5" />
+              Chatbot Theme
+            </DialogTitle>
+          </DialogHeader>
+          {themeDialogSiteId && (
+            <ChatbotThemeSettings siteId={themeDialogSiteId} onClose={() => setThemeDialogSiteId(null)} />
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
