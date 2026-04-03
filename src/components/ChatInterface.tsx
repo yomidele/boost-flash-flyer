@@ -221,7 +221,7 @@ const ChatInterface = ({ siteId, siteName, supabaseUrl, supabaseKey, embedded = 
       <div className="border-t bg-card px-3 sm:px-4 py-3 shrink-0">
         <form onSubmit={(e) => { e.preventDefault(); sendMessage(); }} className="flex gap-2">
           <Input ref={inputRef} value={input} onChange={(e) => setInput(e.target.value)} placeholder="What are you looking for?" disabled={isLoading} className="flex-1" />
-          <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
+          <Button type="submit" size="icon" disabled={isLoading || !input.trim()} style={hasTheme ? { backgroundColor: theme.button_color } : undefined}>
             <Send className="h-4 w-4" />
           </Button>
         </form>
