@@ -146,11 +146,19 @@ const ChatInterface = ({ siteId, siteName, supabaseUrl, supabaseKey, embedded = 
 
   const defaultWelcome = welcomeMessage || "👋 Welcome! What are you looking to buy today?";
 
+  const themeStyles = hasTheme ? {
+    '--chat-primary': theme.primary_color,
+    '--chat-secondary': theme.secondary_color,
+    '--chat-bg': theme.background_color,
+    '--chat-text': theme.text_color,
+    '--chat-button': theme.button_color,
+  } as React.CSSProperties : {};
+
   return (
-    <div className={embedded ? "flex flex-col h-full bg-card rounded-xl overflow-hidden border" : "flex flex-col h-full"}>
-      <div className="flex items-center gap-3 px-4 py-3 border-b bg-card shrink-0">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-          <Users className="h-4 w-4 text-primary-foreground" />
+    <div className={embedded ? "flex flex-col h-full rounded-xl overflow-hidden border" : "flex flex-col h-full"} style={{ ...themeStyles, backgroundColor: hasTheme ? theme.background_color : undefined, color: hasTheme ? theme.text_color : undefined }}>
+      <div className="flex items-center gap-3 px-4 py-3 border-b shrink-0" style={{ backgroundColor: hasTheme ? theme.primary_color : undefined }}>
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ backgroundColor: hasTheme ? theme.secondary_color : undefined }} className={hasTheme ? "" : "bg-primary"}>
+          <Users className="h-4 w-4" style={{ color: hasTheme ? theme.text_color : undefined }} className={hasTheme ? "" : "text-primary-foreground"} />
         </div>
         <div className="min-w-0">
           <p className="text-sm font-semibold truncate">{siteName || "AI Sales Rep"}</p>
