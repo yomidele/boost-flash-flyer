@@ -87,6 +87,7 @@ const Sites = () => {
   const [newIndustry, setNewIndustry] = useState("other");
   const [newCurrency, setNewCurrency] = useState("USD");
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [themeDialogSiteId, setThemeDialogSiteId] = useState<string | null>(null);
 
   const { data: sites, isLoading } = useQuery({
     queryKey: ["sites"],
