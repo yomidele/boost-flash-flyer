@@ -183,9 +183,15 @@ const ChatInterface = ({ siteId, siteName, supabaseUrl, supabaseKey, embedded = 
                 <Users className="h-3.5 w-3.5 text-primary-foreground" />
               </div>
             )}
-            <div className={`max-w-[85%] sm:max-w-[80%] rounded-xl px-3 sm:px-4 py-2.5 text-sm ${
-              msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
-            }`}>
+            <div
+              className={`max-w-[85%] sm:max-w-[80%] rounded-xl px-3 sm:px-4 py-2.5 text-sm ${
+                !hasTheme ? (msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted") : ""
+              }`}
+              style={hasTheme ? {
+                backgroundColor: msg.role === "user" ? theme.primary_color : theme.secondary_color,
+                color: msg.role === "user" ? "#fff" : theme.text_color,
+              } : undefined}
+            >
               {msg.role === "assistant" ? (
                 <div className="prose prose-sm max-w-none dark:prose-invert">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
