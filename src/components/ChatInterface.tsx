@@ -156,9 +156,9 @@ const ChatInterface = ({ siteId, siteName, supabaseUrl, supabaseKey, embedded = 
 
   return (
     <div className={embedded ? "flex flex-col h-full rounded-xl overflow-hidden border" : "flex flex-col h-full"} style={{ ...themeStyles, backgroundColor: hasTheme ? theme.background_color : undefined, color: hasTheme ? theme.text_color : undefined }}>
-      <div className="flex items-center gap-3 px-4 py-3 border-b shrink-0" style={{ backgroundColor: hasTheme ? theme.primary_color : undefined }}>
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ backgroundColor: hasTheme ? theme.secondary_color : undefined }} className={hasTheme ? "" : "bg-primary"}>
-          <Users className="h-4 w-4" style={{ color: hasTheme ? theme.text_color : undefined }} className={hasTheme ? "" : "text-primary-foreground"} />
+      <div className="flex items-center gap-3 px-4 py-3 border-b bg-card shrink-0" style={hasTheme ? { backgroundColor: theme.primary_color, color: "#fff" } : undefined}>
+        <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${hasTheme ? "" : "bg-primary"}`} style={hasTheme ? { backgroundColor: theme.secondary_color } : undefined}>
+          <Users className={`h-4 w-4 ${hasTheme ? "" : "text-primary-foreground"}`} style={hasTheme ? { color: theme.text_color } : undefined} />
         </div>
         <div className="min-w-0">
           <p className="text-sm font-semibold truncate">{siteName || "AI Sales Rep"}</p>
