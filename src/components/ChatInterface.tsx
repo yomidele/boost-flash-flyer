@@ -37,6 +37,8 @@ const cacheMessages = (siteId: string, msgs: Msg[]) => {
 
 const ChatInterface = ({ siteId, siteName, supabaseUrl, supabaseKey, embedded = false, welcomeMessage }: ChatInterfaceProps) => {
   const [messages, setMessages] = useState<Msg[]>(() => getCachedMessages(siteId));
+  const theme = useChatbotTheme(siteId, supabaseUrl, supabaseKey);
+  const hasTheme = !!(theme.primary_color || theme.background_color);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
