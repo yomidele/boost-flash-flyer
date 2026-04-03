@@ -37,6 +37,18 @@ function detectPromptInjection(message: string): boolean {
   return INJECTION_PATTERNS.some((p) => p.test(message));
 }
 
+// ── ORDER CANCELLATION DETECTION ──
+const CANCEL_PATTERNS = [
+  /\b(cancel)\s*(my\s*)?(order|purchase)\b/i,
+  /\bstart\s*again\b/i,
+  /\brestart\b/i,
+  /\bcancel\s*everything\b/i,
+];
+
+function detectCancelIntent(message: string): boolean {
+  return CANCEL_PATTERNS.some((p) => p.test(message));
+}
+
 /** Sanitize user input — strip HTML and limit length */
 function sanitizeMessage(input: string): string {
   if (typeof input !== "string") return "";
