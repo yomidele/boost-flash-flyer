@@ -398,6 +398,44 @@ serve(async (req) => {
       });
     }
 
+    // ── ORDER CANCELLATION HANDLING ──
+    if (detectCancelIntent(query)) {
+      const supabaseUrlEnv = Deno.env.get("SUPABASE_URL")!;
+      const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+      const sbCancel = createClient(supabaseUrlEnv, supabaseServiceKey);
+
+      // Find the most recent pending/paid order for this site + visitor
+      let cancelledAny = false;
+      if (conversationId) {
+        const { data: recentOrder } = await sbCancel
+          .from("orders")
+          .select("id")
+          .eq("site_id", siteId)
+          .eq("conversation_id", conversationId)
+          .in("payment_status", ["pending"])
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .single();
+
+        if (recentOrder) {
+          await sbCancel
+            .from("orders")
+            .update({ payment_status: "cancelled" })
+            .eq("id", recentOrder.id)
+            .eq("site_id", siteId);
+          cancelledAny = true;
+        }
+      }
+
+      const cancelReply = cancelledAny
+        ? "Your order has been cancelled. Let's start again 😊 What would you like to buy?"
+        : "You don't have an active order to cancel. What would you like to buy? 😊";
+
+      return new Response(JSON.stringify({ reply: cancelReply, conversationId }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
