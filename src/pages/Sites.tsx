@@ -10,8 +10,9 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Globe, Loader2, MessageSquare, Trash2, RefreshCw, Code, ExternalLink, Store, Copy } from "lucide-react";
+import { Plus, Globe, Loader2, MessageSquare, Trash2, RefreshCw, Code, ExternalLink, Store, Copy, Palette } from "lucide-react";
 import { Link } from "react-router-dom";
+import ChatbotThemeSettings from "@/components/ChatbotThemeSettings";
 
 const statusColors: Record<string, string> = {
   pending: "bg-muted text-muted-foreground",
