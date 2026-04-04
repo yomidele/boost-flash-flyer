@@ -22,7 +22,7 @@ const EmbedCode = () => {
     enabled: !!siteId,
   });
 
-  const publishedUrl = "https://boost-flash-flyer.lovable.app";
+  const publishedUrl = "https://businessaleschat.vercel.app";
 
   // Universal embed script — auto-updating, cache-busting
   const embedScript = `<!-- AI Sales Rep Widget -->
