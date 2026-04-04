@@ -65,6 +65,7 @@ const App = () => (
             <Route path="/docs" element={<ProtectedRoute><Docs /></ProtectedRoute>} />
             <Route path="/widget/:siteId" element={<ChatWidget />} />
             <Route path="/widget" element={<ChatWidget />} />
+            <Route path="/p/:slug" element={<LandingPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
