@@ -20,6 +20,7 @@ import ChatWidget from "./pages/ChatWidget";
 import Store from "./pages/Store";
 import Docs from "./pages/Docs";
 import LandingPageGenerator from "./pages/LandingPageGenerator";
+import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound";
 import { Loader2 } from "lucide-react";
 
