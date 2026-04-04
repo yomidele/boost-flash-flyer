@@ -46,6 +46,50 @@ export type Database = {
           },
         ]
       }
+      chatbot_themes: {
+        Row: {
+          background_color: string | null
+          button_color: string | null
+          created_at: string
+          id: string
+          primary_color: string | null
+          secondary_color: string | null
+          site_id: string
+          text_color: string | null
+          updated_at: string
+        }
+        Insert: {
+          background_color?: string | null
+          button_color?: string | null
+          created_at?: string
+          id?: string
+          primary_color?: string | null
+          secondary_color?: string | null
+          site_id: string
+          text_color?: string | null
+          updated_at?: string
+        }
+        Update: {
+          background_color?: string | null
+          button_color?: string | null
+          created_at?: string
+          id?: string
+          primary_color?: string | null
+          secondary_color?: string | null
+          site_id?: string
+          text_color?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chatbot_themes_site_id_fkey"
+            columns: ["site_id"]
+            isOneToOne: true
+            referencedRelation: "sites"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       conversations: {
         Row: {
           created_at: string
@@ -231,6 +275,7 @@ export type Database = {
           customer_name: string
           customer_phone: string | null
           delivery_status: string
+          description: string | null
           id: string
           payment_reference: string | null
           payment_status: string
@@ -248,6 +293,7 @@ export type Database = {
           customer_name: string
           customer_phone?: string | null
           delivery_status?: string
+          description?: string | null
           id?: string
           payment_reference?: string | null
           payment_status?: string
@@ -265,6 +311,7 @@ export type Database = {
           customer_name?: string
           customer_phone?: string | null
           delivery_status?: string
+          description?: string | null
           id?: string
           payment_reference?: string | null
           payment_status?: string
