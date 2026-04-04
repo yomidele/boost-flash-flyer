@@ -585,6 +585,10 @@ serve(async (req) => {
     const products = productsResult.data || [];
     const manualPayConfig = manualPayResult.data;
 
+    // Currency symbol (needed for image analysis and responses)
+    const currSymbols: Record<string, string> = { USD: "$", EUR: "€", GBP: "£", NGN: "₦", KES: "KSh", GHS: "₵", ZAR: "R", INR: "₹", CAD: "CA$", AUD: "A$" };
+    const sym = currSymbols[site.currency || "USD"] || (site.currency + " ");
+
     // ── IMAGE ANALYSIS ──
     // Check if the last user message contains an image URL
     const imageMatch = query.match(IMAGE_URL_IN_MSG);
