@@ -57,9 +57,28 @@ export default function Store() {
         const baseUrl = import.meta.env.VITE_SUPABASE_URL || "https://eqemgveuvkdyectdzpzy.supabase.co";
         const apiKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxZW1ndmV1dmtkeWVjdGR6cHp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzI1NzEsImV4cCI6MjA5MDIwODU3MX0.QixH7bgN8PsZLSYtsjPLBti7BxUV572vRIWr2mwBHvA";
 
+        let resolvedSlug = slug;
+
+        // If this is a landing page ID (lp_*), resolve the site_id from it first
+        if (slug.startsWith("lp_")) {
+          const lpResp = await fetch(
+            `${baseUrl}/rest/v1/landing_pages?select=site_id&id=eq.${encodeURIComponent(slug)}&limit=1`,
+            {
+              headers: {
+                apikey: apiKey,
+                Authorization: `Bearer ${apiKey}`,
+              },
+            }
+          );
+          const lpData = await lpResp.json();
+          if (Array.isArray(lpData) && lpData.length > 0 && lpData[0].site_id) {
+            resolvedSlug = lpData[0].site_id;
+          }
+        }
+
         // Use the edge function which runs with service_role key — bypasses RLS
         const resp = await fetch(
-          `${baseUrl}/functions/v1/get-landing-page?slug=${encodeURIComponent(slug)}`,
+          `${baseUrl}/functions/v1/get-landing-page?slug=${encodeURIComponent(resolvedSlug)}`,
           {
             headers: {
               "Content-Type": "application/json",
