@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Loader2, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { supabase } from "@/lib/supabase-external";
 import { StoreThemeProvider } from "@/components/store/StoreThemeProvider";
 import StoreHero from "@/components/store/StoreHero";
 import ProductGrid from "@/components/store/ProductGrid";
@@ -18,7 +17,6 @@ interface SiteData {
   welcome_message: string;
   currency: string;
   industry: string;
-  show_chat_on_landing_page: boolean;
 }
 
 interface Product {
@@ -56,34 +54,42 @@ export default function Store() {
     const load = async () => {
       setLoading(true);
       try {
-        // Try slug-based lookup first
-        let { data: siteData } = await supabase
-          .from("sites")
-          .select("*")
-          .eq("slug", slug)
-          .single();
+        const baseUrl = import.meta.env.VITE_SUPABASE_URL || "https://eqemgveuvkdyectdzpzy.supabase.co";
+        const apiKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxZW1ndmV1dmtkeWVjdGR6cHp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzI1NzEsImV4cCI6MjA5MDIwODU3MX0.QixH7bgN8PsZLSYtsjPLBti7BxUV572vRIWr2mwBHvA";
 
-        // Fallback to ID lookup
-        if (!siteData) {
-          const { data: siteById } = await supabase
-            .from("sites")
-            .select("*")
-            .eq("id", slug)
-            .single();
-          if (!siteById) throw new Error("Store not found");
-          siteData = siteById;
+        // Use the edge function which runs with service_role key — bypasses RLS
+        const resp = await fetch(
+          `${baseUrl}/functions/v1/get-landing-page?slug=${encodeURIComponent(slug)}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              apikey: apiKey,
+              Authorization: `Bearer ${apiKey}`,
+            },
+          }
+        );
+
+        if (!resp.ok) {
+          throw new Error("Store not found");
         }
 
-        setSite(siteData);
+        const data = await resp.json();
 
-        // Fetch products
-        const { data: prods } = await supabase
-          .from("products")
-          .select("id, name, description, price, image_url, category, stock")
-          .eq("site_id", siteData.id)
-          .order("created_at", { ascending: false });
+        if (!data.business) {
+          throw new Error("Store not found");
+        }
 
-        setProducts(prods || []);
+        setSite({
+          id: data.business.id,
+          name: data.business.name,
+          url: data.business.url,
+          slug: data.business.slug,
+          welcome_message: data.business.welcome_message,
+          currency: data.business.currency,
+          industry: data.business.industry,
+        });
+
+        setProducts(data.products || []);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load store");
       } finally {
@@ -138,7 +144,6 @@ export default function Store() {
           }}
         />
 
-        {/* Products Section */}
         <section ref={productsRef} className="max-w-6xl mx-auto px-4 sm:px-8 py-12 sm:py-20">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             <div>
@@ -163,14 +168,13 @@ export default function Store() {
           )}
         </section>
 
-        {/* Footer */}
         <footer className="border-t border-black/5 py-8 text-center">
           <p className="text-xs opacity-40">
             Powered by AI Sales Rep • {site.name}
           </p>
         </footer>
 
-        {/* Chatbot — ALWAYS rendered, never optional */}
+        {/* Chatbot — ALWAYS rendered */}
         <FloatingChatWidget
           siteId={site.id}
           siteName={site.name}
