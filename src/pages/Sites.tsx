@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Globe, Loader2, MessageSquare, Trash2, RefreshCw, Code, ExternalLink, Store, Copy, Palette } from "lucide-react";
+import { Plus, Globe, Loader2, MessageSquare, Trash2, RefreshCw, Code, ExternalLink, Store, Copy, Palette, Settings2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import ChatbotThemeSettings from "@/components/ChatbotThemeSettings";
 
@@ -407,9 +407,20 @@ const Sites = () => {
                           variant="ghost"
                           className="h-8 w-8"
                           onClick={() => setThemeDialogSiteId(site.id)}
-                          title="Theme"
+                          title="Chatbot Theme"
                         >
                           <Palette className="h-3.5 w-3.5" />
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="h-8 w-8"
+                          asChild
+                          title="Customize Store"
+                        >
+                          <Link to={`/customize/${site.id}`}>
+                            <Settings2 className="h-3.5 w-3.5" />
+                          </Link>
                         </Button>
                         <Button
                           size="icon"
