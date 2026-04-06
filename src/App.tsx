@@ -18,6 +18,7 @@ import ChatTest from "./pages/ChatTest";
 import EmbedCode from "./pages/EmbedCode";
 import ChatWidget from "./pages/ChatWidget";
 import Store from "./pages/Store";
+import StoreCustomizer from "./pages/StoreCustomizer";
 import Docs from "./pages/Docs";
 import LandingPageGenerator from "./pages/LandingPageGenerator";
 import LandingPage from "./pages/LandingPage";
@@ -62,6 +63,7 @@ const App = () => (
             <Route path="/landing-pages" element={<ProtectedRoute><LandingPageGenerator /></ProtectedRoute>} />
             <Route path="/chat/:siteId" element={<ProtectedRoute withLayout={false}><ChatTest /></ProtectedRoute>} />
             <Route path="/embed/:siteId" element={<ProtectedRoute><EmbedCode /></ProtectedRoute>} />
+            <Route path="/customize/:siteId" element={<ProtectedRoute><StoreCustomizer /></ProtectedRoute>} />
             <Route path="/docs" element={<ProtectedRoute><Docs /></ProtectedRoute>} />
             <Route path="/widget/:siteId" element={<ChatWidget />} />
             <Route path="/widget" element={<ChatWidget />} />
